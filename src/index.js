@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors({ origin: '*' }))
 
 
-
+//mongoconnection
 mongoose.connect(process.env.MONGODB, {
     useNewUrlParser: true
 })
@@ -19,7 +19,12 @@ mongoose.connect(process.env.MONGODB, {
     .catch(err => console.log(err))
 
 app.use('/', route);
+app.use(express.static('./build'))
 
+//connect to front end
+app.get('/*', (req, res) => {
+    res.sendFile('index.html', { root: 'build/' })
+})
 app.listen(process.env.PORT || 4000, () => {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 })
