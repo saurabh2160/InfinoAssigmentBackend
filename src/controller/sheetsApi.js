@@ -12,7 +12,8 @@ const sheet_proccess = async (req, res) => {
         let { number, link } = data
 
         //if number is not a valid number
-        if (typeof number !== 'number') {
+        number = Number(number)
+        if (!number) {
             return res.status(400).send({ status: false, msg: "number must be between 0-9" })
         }
         if (number > 9 || number < 0)
